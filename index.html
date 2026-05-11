@@ -4,757 +4,478 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cuestionario PowerPoint 365 – Jasperactive</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --red:        #e8402a;
-    --red-dark:   #c0321e;
-    --red-light:  #f06048;
-    --salmon:     #f7876e;
-    --cream:      #fff8f5;
-    --white:      #ffffff;
-    --green:      #2ec97a;
-    --green-bg:   #d4f5e5;
-    --wrong:      #ff4d4d;
-    --wrong-bg:   #ffe0e0;
-    --yellow:     #ffd140;
-    --text:       #1a1a2e;
-    --muted:      #7a6e6a;
-    --shadow:     0 4px 24px rgba(232,64,42,0.13);
-    --radius:     14px;
-  }
+:root {
+  --red:    #e8402a;
+  --red-d:  #b82e1a;
+  --red-l:  #f06048;
+  --salmon: #f7876e;
+  --cream:  #fff8f5;
+  --white:  #ffffff;
+  --green:  #22c97a;
+  --gbg:    #d4f5e5;
+  --wrong:  #ff4545;
+  --wbg:    #ffe0e0;
+  --yellow: #ffd140;
+  --ink:    #1c1018;
+  --muted:  #9e8a87;
+  --shadow: 0 8px 40px rgba(184,46,26,.18);
+  --r:      16px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;overflow-x:hidden}
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ── SCREENS ── */
+.screen{display:none}
+.screen.active{display:flex}
 
-  body {
-    font-family: 'Nunito', sans-serif;
-    background: var(--cream);
-    color: var(--text);
-    min-height: 100vh;
-  }
+/* ══════════════════════════════
+   COVER
+══════════════════════════════ */
+#cover{
+  min-height:100vh;flex-direction:column;align-items:center;
+  background:linear-gradient(160deg,#c0281a 0%,#e8402a 38%,#f06048 70%,#ffd5c8 100%);
+  position:relative;overflow:hidden;padding-bottom:64px;
+}
+#cover::before,#cover::after{
+  content:'';position:absolute;border-radius:50%;opacity:.12;background:#fff;pointer-events:none;
+}
+#cover::before{width:500px;height:500px;top:-180px;right:-150px}
+#cover::after{width:300px;height:300px;bottom:60px;left:-100px}
+.cdots{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(255,255,255,.15) 1.5px,transparent 1.5px);
+  background-size:30px 30px;
+}
+.cinner{
+  position:relative;z-index:2;width:100%;max-width:680px;
+  padding:52px 20px 0;display:flex;flex-direction:column;align-items:center;text-align:center;
+  animation:fadeDown .7s ease both;
+}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-28px)}to{opacity:1;transform:translateY(0)}}
+.clogo{font-size:5.5rem;line-height:1;margin-bottom:8px;filter:drop-shadow(0 6px 20px rgba(0,0,0,.22));animation:pop .6s cubic-bezier(.34,1.56,.64,1) .2s both}
+@keyframes pop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.cbadge{
+  display:inline-block;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.4);
+  color:#fff;border-radius:40px;padding:5px 18px;font-size:.72rem;font-weight:800;
+  letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px;
+}
+.ctitle{
+  font-family:'Baloo 2',cursive;font-size:clamp(2rem,6vw,3rem);font-weight:900;
+  color:#fff;line-height:1.1;text-shadow:0 3px 18px rgba(0,0,0,.25);margin-bottom:8px;
+}
+.csub{color:rgba(255,255,255,.9);font-size:1rem;font-weight:700;margin-bottom:30px}
+.ccard{
+  background:rgba(255,255,255,.97);border-radius:24px;padding:28px 28px 24px;
+  width:100%;box-shadow:var(--shadow);text-align:left;
+  animation:fadeUp .6s ease .35s both;margin-bottom:26px;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.ccard h2{
+  font-family:'Baloo 2',cursive;font-size:1.1rem;font-weight:800;color:var(--red-d);
+  margin-bottom:16px;display:flex;align-items:center;gap:8px;
+}
+.cstats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.sbox{background:var(--cream);border-radius:12px;padding:12px 8px;text-align:center}
+.snum{font-family:'Baloo 2',cursive;font-size:1.7rem;font-weight:900;color:var(--red);line-height:1}
+.slbl{font-size:.7rem;font-weight:700;color:var(--muted);margin-top:2px}
+.llist{display:flex;flex-direction:column;gap:8px}
+.lrow{display:flex;align-items:center;gap:10px;background:#faf4f2;border-radius:10px;padding:10px 14px}
+.lic{font-size:1.25rem;flex-shrink:0}
+.linfo{flex:1}
+.lname{font-weight:800;font-size:.87rem;color:var(--ink)}
+.ltopics{font-size:.72rem;color:var(--muted);font-weight:600;margin-top:1px}
+.lcnt{background:var(--red);color:#fff;border-radius:20px;font-size:.7rem;font-weight:800;padding:3px 10px;flex-shrink:0}
+.btn-start{
+  background:linear-gradient(135deg,var(--red-d),var(--red));color:#fff;border:none;
+  border-radius:60px;padding:18px 60px;font-family:'Baloo 2',cursive;font-size:1.3rem;
+  font-weight:800;cursor:pointer;box-shadow:0 8px 32px rgba(184,46,26,.42);
+  transition:transform .15s,box-shadow .15s;animation:fadeUp .6s ease .55s both;
+  display:flex;align-items:center;gap:10px;
+}
+.btn-start:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 14px 40px rgba(184,46,26,.5)}
+.btn-start:active{transform:scale(.98)}
+.cnote{color:rgba(255,255,255,.75);font-size:.78rem;font-weight:600;margin-top:10px;animation:fadeUp .6s ease .65s both}
 
-  /* ─── HEADER ─── */
-  header {
-    background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 55%, var(--red-light) 100%);
-    color: var(--white);
-    padding: 32px 24px 28px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  header::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: repeating-linear-gradient(
-      -45deg,
-      transparent,
-      transparent 18px,
-      rgba(255,255,255,.04) 18px,
-      rgba(255,255,255,.04) 36px
-    );
-  }
-  header .badge {
-    display: inline-block;
-    background: rgba(255,255,255,.18);
-    border: 1.5px solid rgba(255,255,255,.35);
-    border-radius: 30px;
-    font-size: .75rem;
-    font-weight: 800;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    padding: 4px 16px;
-    margin-bottom: 12px;
-  }
-  header h1 {
-    font-family: 'Baloo 2', cursive;
-    font-size: clamp(1.6rem, 5vw, 2.6rem);
-    font-weight: 800;
-    line-height: 1.15;
-    text-shadow: 0 2px 12px rgba(0,0,0,.2);
-  }
-  header p {
-    margin-top: 8px;
-    opacity: .88;
-    font-size: .95rem;
-    font-weight: 600;
-  }
+/* ══════════════════════════════
+   QUIZ
+══════════════════════════════ */
+#quiz{min-height:100vh;flex-direction:column;background:var(--cream)}
+.topbar{
+  background:var(--white);padding:13px 18px;
+  box-shadow:0 2px 12px rgba(0,0,0,.07);position:sticky;top:0;z-index:50;
+}
+.topbar-in{max-width:700px;margin:0 auto;display:flex;align-items:center;gap:13px}
+.qcount{font-family:'Baloo 2',cursive;font-weight:800;font-size:.9rem;color:var(--red);white-space:nowrap;min-width:55px}
+.ptrack{flex:1;height:10px;background:#f0e6e3;border-radius:99px;overflow:hidden}
+.pfill{height:100%;width:0%;background:linear-gradient(90deg,var(--red-d),var(--red-l));border-radius:99px;transition:width .45s cubic-bezier(.4,0,.2,1)}
+.spill{background:var(--cream);border:2px solid #eee;border-radius:99px;padding:4px 11px;font-size:.76rem;font-weight:800;white-space:nowrap}
+.qbody{flex:1;display:flex;align-items:flex-start;justify-content:center;padding:28px 16px 48px}
+.qwrap{width:100%;max-width:700px;animation:qIn .35s cubic-bezier(.4,0,.2,1) both}
+@keyframes qIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes qOut{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(-40px)}}
+.qwrap.leaving{animation:qOut .25s ease both}
+.qlchip{
+  display:inline-flex;align-items:center;gap:6px;background:var(--red);color:#fff;
+  border-radius:30px;padding:4px 14px;font-size:.7rem;font-weight:800;
+  letter-spacing:.08em;text-transform:uppercase;margin-bottom:13px;
+}
+.qcard{
+  background:var(--white);border-radius:22px;box-shadow:0 6px 30px rgba(184,46,26,.11);
+  padding:28px 28px 24px;border:2.5px solid transparent;transition:border-color .3s;
+}
+.qcard.ok{border-color:var(--green)}
+.qcard.fail{border-color:var(--wrong)}
+.qnum{font-size:.7rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:7px}
+.qtext{font-size:1.08rem;font-weight:800;line-height:1.45;margin-bottom:20px}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{
+  display:flex;align-items:center;gap:13px;border:2.5px solid #ece5e3;
+  border-radius:12px;padding:12px 15px;background:#faf5f4;cursor:pointer;
+  font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:700;color:var(--ink);
+  text-align:left;transition:background .14s,border-color .14s,transform .12s;width:100%;
+}
+.opt:hover:not(:disabled){background:#fff0ec;border-color:var(--salmon);transform:translateX(5px)}
+.opt:disabled{cursor:default}
+.oltr{
+  width:33px;height:33px;border-radius:50%;background:#ede0dc;color:var(--red-d);
+  font-weight:900;font-size:.78rem;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:background .2s,color .2s,transform .2s;
+}
+.opt.correct{background:var(--gbg);border-color:var(--green)}
+.opt.correct .oltr{background:var(--green);color:#fff;transform:scale(1.15)}
+.opt.wrong{background:var(--wbg);border-color:var(--wrong)}
+.opt.wrong .oltr{background:var(--wrong);color:#fff}
+.fb{
+  display:none;margin-top:14px;border-radius:12px;padding:11px 15px;
+  font-weight:700;font-size:.9rem;align-items:flex-start;gap:9px;line-height:1.4;
+}
+.fb.show{display:flex}
+.fb.ok{background:var(--gbg);color:#0f6b3e}
+.fb.fail{background:var(--wbg);color:#9e1e1e}
+.fbi{font-size:1.15rem;flex-shrink:0;margin-top:1px}
+.nextwrap{margin-top:20px;display:flex;justify-content:flex-end}
+.btn-next{
+  background:linear-gradient(135deg,var(--red-d),var(--red));color:#fff;border:none;
+  border-radius:50px;padding:13px 34px;font-family:'Baloo 2',cursive;font-size:1rem;
+  font-weight:800;cursor:pointer;box-shadow:0 4px 20px rgba(184,46,26,.3);
+  display:none;align-items:center;gap:8px;transition:transform .14s,box-shadow .14s;
+}
+.btn-next.show{display:flex;animation:fadeUp .3s ease both}
+.btn-next:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(184,46,26,.42)}
 
-  /* ─── PROGRESS BAR ─── */
-  #progress-wrap {
-    background: var(--white);
-    padding: 14px 24px;
-    box-shadow: 0 2px 8px rgba(0,0,0,.07);
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  #progress-label { font-weight: 800; font-size: .85rem; white-space: nowrap; color: var(--red); }
-  #progress-bar-outer {
-    flex: 1;
-    height: 12px;
-    background: #f0e8e6;
-    border-radius: 99px;
-    overflow: hidden;
-  }
-  #progress-bar-inner {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, var(--red), var(--yellow));
-    border-radius: 99px;
-    transition: width .4s ease;
-  }
-  #score-live {
-    font-weight: 800;
-    font-size: .85rem;
-    color: var(--text);
-    white-space: nowrap;
-  }
+/* ══════════════════════════════
+   RESULTS
+══════════════════════════════ */
+#results{
+  min-height:100vh;flex-direction:column;align-items:center;
+  background:linear-gradient(160deg,#1c1018 0%,#2e1220 50%,#3e1818 100%);
+  padding:0 16px 60px;overflow:hidden;position:relative;
+}
+.stars{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.7) 1px,transparent 1px),
+    radial-gradient(circle,rgba(255,255,255,.4) 1px,transparent 1px),
+    radial-gradient(circle,rgba(255,255,255,.5) 1px,transparent 1px);
+  background-size:80px 80px,140px 140px,200px 200px;
+  background-position:0 0,40px 40px,80px 80px;
+  animation:twinkle 4s ease-in-out infinite alternate;
+}
+@keyframes twinkle{to{opacity:.6}}
+.rinner{
+  position:relative;z-index:2;width:100%;max-width:640px;
+  display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:50px;
+}
+.trophy{font-size:6rem;line-height:1;margin-bottom:6px;animation:tBounce .9s cubic-bezier(.34,1.56,.64,1) .1s both}
+@keyframes tBounce{from{transform:scale(0) rotate(-15deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+.rtitle{
+  font-family:'Baloo 2',cursive;font-size:clamp(1.7rem,5vw,2.4rem);font-weight:900;
+  color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.3);margin-bottom:6px;
+  animation:fadeUp .5s ease .3s both;
+}
+.ring-wrap{margin:20px 0 16px;animation:fadeUp .5s ease .4s both}
+.ring-wrap svg{overflow:visible}
+.rbg{fill:none;stroke:rgba(255,255,255,.12);stroke-width:12}
+.rfg{
+  fill:none;stroke-width:12;stroke-linecap:round;stroke:var(--yellow);
+  transform-origin:80px 80px;transform:rotate(-90deg);
+  transition:stroke-dasharray 1.2s cubic-bezier(.4,0,.2,1) .5s;
+}
+.rnum{font-family:'Baloo 2',cursive;font-size:2.2rem;font-weight:900;fill:#fff}
+.rdenom{font-size:.82rem;font-weight:700;fill:rgba(255,255,255,.6)}
+.rpct{font-family:'Baloo 2',cursive;font-size:1rem;font-weight:800;color:var(--yellow);animation:fadeUp .5s ease .5s both;margin-bottom:14px}
+.rmsg{
+  color:rgba(255,255,255,.88);font-size:.97rem;font-weight:700;line-height:1.55;
+  max-width:480px;animation:fadeUp .5s ease .55s both;margin-bottom:26px;
+}
+.bdown{
+  width:100%;display:grid;grid-template-columns:repeat(2,1fr);gap:10px;
+  margin-bottom:30px;animation:fadeUp .5s ease .65s both;
+}
+.bcard{
+  background:rgba(255,255,255,.09);border:1.5px solid rgba(255,255,255,.14);
+  border-radius:14px;padding:14px 14px;text-align:left;
+}
+.bico{font-size:1.4rem;margin-bottom:5px}
+.bl{font-size:.68rem;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em}
+.bn{font-size:.85rem;font-weight:800;color:#fff;margin-bottom:8px;line-height:1.2}
+.btrack{height:6px;background:rgba(255,255,255,.14);border-radius:99px;overflow:hidden;margin-bottom:4px}
+.bfill{height:100%;border-radius:99px;background:var(--yellow);transition:width .8s ease .7s;width:0%}
+.bsc{font-size:.78rem;font-weight:800;color:var(--yellow)}
+.ract{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;animation:fadeUp .5s ease .75s both}
+.btn-retry{
+  background:linear-gradient(135deg,var(--red-d),var(--red));color:#fff;border:none;
+  border-radius:50px;padding:14px 38px;font-family:'Baloo 2',cursive;font-size:1.05rem;
+  font-weight:800;cursor:pointer;box-shadow:0 6px 24px rgba(184,46,26,.5);
+  transition:transform .14s,box-shadow .14s;display:flex;align-items:center;gap:8px;
+}
+.btn-retry:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(184,46,26,.6)}
 
-  /* ─── MAIN ─── */
-  main {
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 28px 16px 60px;
-  }
-
-  /* ─── LESSON CHIP ─── */
-  .lesson-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--red);
-    color: var(--white);
-    border-radius: 30px;
-    padding: 4px 14px;
-    font-size: .72rem;
-    font-weight: 800;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-
-  /* ─── QUESTION CARD ─── */
-  .q-card {
-    background: var(--white);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 26px 28px 22px;
-    margin-bottom: 20px;
-    border: 2px solid transparent;
-    transition: border-color .25s;
-  }
-  .q-card.answered-correct { border-color: var(--green); }
-  .q-card.answered-wrong   { border-color: var(--wrong); }
-
-  .q-number {
-    font-size: .72rem;
-    font-weight: 800;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: .1em;
-    margin-bottom: 6px;
-  }
-  .q-text {
-    font-size: 1.05rem;
-    font-weight: 700;
-    line-height: 1.4;
-    margin-bottom: 18px;
-  }
-
-  /* ─── OPTIONS ─── */
-  .options { display: flex; flex-direction: column; gap: 10px; }
-  .opt-btn {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: #faf5f4;
-    border: 2px solid #eee;
-    border-radius: 10px;
-    padding: 12px 16px;
-    cursor: pointer;
-    font-family: 'Nunito', sans-serif;
-    font-size: .95rem;
-    font-weight: 600;
-    color: var(--text);
-    text-align: left;
-    transition: background .15s, border-color .15s, transform .1s;
-  }
-  .opt-btn:hover:not(:disabled) {
-    background: #fff0ed;
-    border-color: var(--salmon);
-    transform: translateX(4px);
-  }
-  .opt-btn:disabled { cursor: default; }
-
-  .opt-letter {
-    min-width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: #eeddd9;
-    color: var(--red-dark);
-    font-weight: 800;
-    font-size: .8rem;
-    display: flex; align-items: center; justify-content: center;
-    transition: background .2s, color .2s;
-    flex-shrink: 0;
-  }
-
-  .opt-btn.correct {
-    background: var(--green-bg);
-    border-color: var(--green);
-  }
-  .opt-btn.correct .opt-letter {
-    background: var(--green);
-    color: #fff;
-  }
-  .opt-btn.wrong {
-    background: var(--wrong-bg);
-    border-color: var(--wrong);
-  }
-  .opt-btn.wrong .opt-letter {
-    background: var(--wrong);
-    color: #fff;
-  }
-
-  /* ─── FEEDBACK ─── */
-  .feedback {
-    display: none;
-    margin-top: 14px;
-    padding: 10px 14px;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: .9rem;
-    align-items: center;
-    gap: 8px;
-  }
-  .feedback.show { display: flex; }
-  .feedback.ok  { background: var(--green-bg); color: #1a7d4e; }
-  .feedback.bad { background: var(--wrong-bg);  color: #b03030; }
-
-  /* ─── SUBMIT BTN ─── */
-  #submit-wrap {
-    text-align: center;
-    margin-top: 10px;
-  }
-  #btn-submit {
-    background: linear-gradient(135deg, var(--red-dark), var(--red));
-    color: #fff;
-    border: none;
-    border-radius: 50px;
-    padding: 16px 52px;
-    font-family: 'Baloo 2', cursive;
-    font-size: 1.2rem;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 6px 24px rgba(232,64,42,.35);
-    transition: transform .15s, box-shadow .15s;
-  }
-  #btn-submit:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(232,64,42,.45);
-  }
-  #btn-submit:active { transform: translateY(0); }
-  #btn-submit:disabled { opacity: .5; cursor: default; transform: none; }
-
-  /* ─── RESULTS ─── */
-  #results-screen {
-    display: none;
-    text-align: center;
-    padding: 20px 0 40px;
-    animation: fadeUp .5s ease forwards;
-  }
-  @keyframes fadeUp {
-    from { opacity:0; transform: translateY(30px); }
-    to   { opacity:1; transform: translateY(0); }
-  }
-
-  .result-trophy {
-    font-size: 5rem;
-    margin-bottom: 8px;
-    animation: bounce 1s ease 0.3s both;
-  }
-  @keyframes bounce {
-    0%,100% { transform: translateY(0); }
-    40%      { transform: translateY(-18px); }
-    60%      { transform: translateY(-8px); }
-  }
-
-  .result-title {
-    font-family: 'Baloo 2', cursive;
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--red-dark);
-    margin-bottom: 6px;
-  }
-  .result-score-circle {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--red-dark), var(--red-light));
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 20px auto;
-    box-shadow: 0 8px 32px rgba(232,64,42,.4);
-  }
-  .result-score-num {
-    font-family: 'Baloo 2', cursive;
-    font-size: 2.6rem;
-    font-weight: 800;
-    line-height: 1;
-  }
-  .result-score-denom { font-size: .9rem; font-weight: 700; opacity: .85; }
-
-  .result-msg {
-    font-size: 1.1rem;
-    font-weight: 700;
-    max-width: 480px;
-    margin: 0 auto 28px;
-    color: var(--text);
-    line-height: 1.5;
-  }
-
-  .lesson-summary {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 30px;
-  }
-  .ls-chip {
-    background: #fff;
-    border-radius: 12px;
-    padding: 12px 20px;
-    box-shadow: var(--shadow);
-    font-weight: 700;
-    font-size: .85rem;
-    color: var(--text);
-    min-width: 140px;
-  }
-  .ls-chip span { display: block; font-size: 1.35rem; font-weight: 800; color: var(--red); }
-
-  #btn-retry {
-    background: var(--white);
-    color: var(--red-dark);
-    border: 2.5px solid var(--red);
-    border-radius: 50px;
-    padding: 13px 40px;
-    font-family: 'Baloo 2', cursive;
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background .2s, color .2s;
-  }
-  #btn-retry:hover { background: var(--red); color: #fff; }
-
-  /* ─── RESPONSIVE ─── */
-  @media(max-width:560px) {
-    .q-card { padding: 18px 16px 16px; }
-    .opt-btn { font-size: .88rem; padding: 10px 12px; }
-  }
+@media(max-width:540px){
+  .qcard{padding:20px 16px 18px}
+  .qtext{font-size:1rem}
+  .opt{font-size:.88rem;padding:10px 12px}
+  .bdown{grid-template-columns:1fr 1fr}
+}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="badge">🎓 Jasperactive · PowerPoint 365</div>
-  <h1>Cuestionario de Certificación</h1>
-  <p>Lecciones 1–4 · 30 preguntas · 3.° Básico</p>
-</header>
+<!-- ① COVER -->
+<div id="cover" class="screen active">
+  <div class="cdots"></div>
+  <div class="cinner">
+    <div class="clogo">📊</div>
+    <div class="cbadge">🎓 Jasperactive · Certificación</div>
+    <h1 class="ctitle">Cuestionario<br>PowerPoint 365</h1>
+    <p class="csub">3.° Básico · Evaluación de conocimientos</p>
 
-<div id="progress-wrap">
-  <span id="progress-label">0 / 30</span>
-  <div id="progress-bar-outer"><div id="progress-bar-inner"></div></div>
-  <span id="score-live">✅ 0 &nbsp; ❌ 0</span>
+    <div class="ccard">
+      <h2>📋 Descripción de la prueba</h2>
+      <div class="cstats">
+        <div class="sbox"><div class="snum">30</div><div class="slbl">Preguntas</div></div>
+        <div class="sbox"><div class="snum">4</div><div class="slbl">Lecciones</div></div>
+        <div class="sbox"><div class="snum">4</div><div class="slbl">Opciones</div></div>
+      </div>
+      <div class="llist">
+        <div class="lrow">
+          <span class="lic">📋</span>
+          <div class="linfo"><div class="lname">Lección 1: Introducción</div><div class="ltopics">Crear, guardar, tamaños, propiedades, vistas</div></div>
+          <span class="lcnt">8 preg.</span>
+        </div>
+        <div class="lrow">
+          <span class="lic">🖼️</span>
+          <div class="linfo"><div class="lname">Lección 2: Trabajar con diapositivas</div><div class="ltopics">Temas, patrón, diseños, pie de página, orden</div></div>
+          <span class="lcnt">8 preg.</span>
+        </div>
+        <div class="lrow">
+          <span class="lic">✍️</span>
+          <div class="linfo"><div class="lname">Lección 3: Trabajar con texto</div><div class="ltopics">Esquema, corrector, formato, viñetas, cuadros</div></div>
+          <span class="lcnt">9 preg.</span>
+        </div>
+        <div class="lrow">
+          <span class="lic">📊</span>
+          <div class="linfo"><div class="lname">Lección 4: Gráficos y tablas</div><div class="ltopics">Insertar gráficos, crear y modificar tablas</div></div>
+          <span class="lcnt">5 preg.</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-start" onclick="startQuiz()">¡Iniciar prueba! 🚀</button>
+    <p class="cnote">Selecciona la respuesta correcta en cada pregunta</p>
+  </div>
 </div>
 
-<main>
-  <div id="quiz-container"></div>
-
-  <div id="submit-wrap">
-    <button id="btn-submit" disabled onclick="showResults()">Ver mi resultado final 🎯</button>
-  </div>
-
-  <div id="results-screen">
-    <div class="result-trophy" id="trophy">🏆</div>
-    <div class="result-title" id="result-title">¡Excelente trabajo!</div>
-    <div class="result-score-circle">
-      <span class="result-score-num" id="final-score">0</span>
-      <span class="result-score-denom">de 30</span>
+<!-- ② QUIZ -->
+<div id="quiz" class="screen">
+  <div class="topbar">
+    <div class="topbar-in">
+      <span class="qcount" id="qcount">1 / 30</span>
+      <div class="ptrack"><div class="pfill" id="pfill"></div></div>
+      <div class="spill" id="spill">✅ 0 &nbsp;❌ 0</div>
     </div>
-    <p class="result-msg" id="result-msg"></p>
-    <div class="lesson-summary" id="lesson-summary"></div>
-    <button id="btn-retry" onclick="retryQuiz()">🔄 Intentar de nuevo</button>
   </div>
-</main>
+  <div class="qbody">
+    <div class="qwrap" id="qwrap"></div>
+  </div>
+</div>
+
+<!-- ③ RESULTS -->
+<div id="results" class="screen">
+  <div class="stars"></div>
+  <div class="rinner">
+    <div class="trophy" id="trophy">🏆</div>
+    <div class="rtitle" id="rtitle">¡Excelente!</div>
+    <div class="ring-wrap">
+      <svg width="160" height="160" viewBox="0 0 160 160">
+        <circle class="rbg" cx="80" cy="80" r="65"/>
+        <circle class="rfg" id="rfg" cx="80" cy="80" r="65" stroke-dasharray="0 408" stroke-dashoffset="0"/>
+        <text text-anchor="middle">
+          <tspan class="rnum" id="rnum" x="80" y="92">0</tspan>
+        </text>
+        <text class="rdenom" x="80" y="110" text-anchor="middle">de 30</text>
+      </svg>
+    </div>
+    <div class="rpct" id="rpct">0%</div>
+    <p class="rmsg" id="rmsg"></p>
+    <div class="bdown" id="bdown"></div>
+    <div class="ract">
+      <button class="btn-retry" onclick="retry()">🔄 Intentar de nuevo</button>
+    </div>
+  </div>
+</div>
 
 <script>
-const QUESTIONS = [
-  /* ── LECCIÓN 1: INTRODUCCIÓN ── */
-  {
-    lesson: 1, lessonName: "Introducción",
-    q: "¿Cuál de las siguientes opciones permite crear una presentación nueva en blanco en PowerPoint 365?",
-    opts: ["Archivo > Abrir", "Archivo > Nuevo > Presentación en blanco", "Insertar > Diapositiva", "Vista > Normal"],
-    correct: 1
-  },
-  {
-    lesson: 1, lessonName: "Introducción",
-    q: "¿Dónde se encuentran las opciones para cambiar el tamaño de la diapositiva en PowerPoint 365?",
-    opts: ["Pestaña Inicio > Diapositivas", "Pestaña Diseño > Tamaño de diapositiva", "Pestaña Insertar > Tamaño", "Pestaña Vista > Zoom"],
-    correct: 1
-  },
-  {
-    lesson: 1, lessonName: "Introducción",
-    q: "¿Cuál es la extensión predeterminada de un archivo de PowerPoint 365?",
-    opts: [".doc", ".xls", ".pptx", ".pdf"],
-    correct: 2
-  },
-  {
-    lesson: 1, lessonName: "Introducción",
-    q: "¿Qué opción se debe usar para guardar una presentación de manera que sea compatible con versiones anteriores de PowerPoint?",
-    opts: ["Guardar como PDF", "Guardar como PowerPoint 97-2003 (.ppt)", "Exportar como imagen", "Guardar en la nube"],
-    correct: 1
-  },
-  {
-    lesson: 1, lessonName: "Introducción",
-    q: "¿Qué atajo de teclado se usa para guardar rápidamente una presentación en PowerPoint 365?",
-    opts: ["Ctrl + P", "Ctrl + G", "Ctrl + S", "Ctrl + A"],
-    correct: 2
-  },
-  {
-    lesson: 1, lessonName: "Introducción",
-    q: "¿Dónde se pueden modificar las propiedades de la presentación (como el autor y el título)?",
-    opts: ["Pestaña Insertar > Encabezado", "Archivo > Información > Propiedades", "Pestaña Diseño > Temas", "Vista > Esquema"],
-    correct: 1
-  },
-  {
-    lesson: 1, lessonName: "Introducción",
-    q: "¿Qué vista de PowerPoint muestra la presentación en pantalla completa, como la vería el público?",
-    opts: ["Vista Normal", "Vista Esquema", "Vista Presentación con diapositivas", "Vista Clasificador"],
-    correct: 2
-  },
-  {
-    lesson: 1, lessonName: "Introducción",
-    q: "¿Cuáles son los dos tamaños estándar de diapositiva disponibles en PowerPoint 365?",
-    opts: ["Carta y Oficio", "Estándar (4:3) y Panorámica (16:9)", "A4 y A3", "Cuadrado y Rectangular"],
-    correct: 1
-  },
-
-  /* ── LECCIÓN 2: TRABAJAR CON DIAPOSITIVAS ── */
-  {
-    lesson: 2, lessonName: "Trabajar con diapositivas",
-    q: "¿Qué es un 'tema' en PowerPoint 365?",
-    opts: ["Un tipo de animación", "Un conjunto de colores, fuentes y efectos de diseño predefinidos", "Una vista especial de la presentación", "Un tipo de gráfico"],
-    correct: 1
-  },
-  {
-    lesson: 2, lessonName: "Trabajar con diapositivas",
-    q: "¿Dónde se encuentran los temas en PowerPoint 365?",
-    opts: ["Pestaña Insertar > Temas", "Pestaña Diseño > Temas", "Pestaña Vista > Temas", "Pestaña Inicio > Temas"],
-    correct: 1
-  },
-  {
-    lesson: 2, lessonName: "Trabajar con diapositivas",
-    q: "¿Qué es el 'patrón de diapositivas' en PowerPoint 365?",
-    opts: ["Una plantilla que controla el formato y diseño de todas las diapositivas", "Un tipo de gráfico especial", "Una función para imprimir diapositivas", "Una herramienta para agregar texto"],
-    correct: 0
-  },
-  {
-    lesson: 2, lessonName: "Trabajar con diapositivas",
-    q: "¿Desde qué pestaña se accede al patrón de diapositivas en PowerPoint 365?",
-    opts: ["Inicio", "Insertar", "Vista", "Diseño"],
-    correct: 2
-  },
-  {
-    lesson: 2, lessonName: "Trabajar con diapositivas",
-    q: "¿Qué permite el 'pie de página' en una presentación de PowerPoint?",
-    opts: ["Agregar un fondo a las diapositivas", "Mostrar texto, fecha o número de diapositiva en la parte inferior", "Insertar imágenes decorativas", "Cambiar el color del texto principal"],
-    correct: 1
-  },
-  {
-    lesson: 2, lessonName: "Trabajar con diapositivas",
-    q: "¿Cómo se duplica una diapositiva en PowerPoint 365?",
-    opts: ["Clic derecho en la diapositiva > Duplicar diapositiva", "Insertar > Nueva diapositiva > Duplicar", "Archivo > Duplicar", "Vista > Copiar diapositiva"],
-    correct: 0
-  },
-  {
-    lesson: 2, lessonName: "Trabajar con diapositivas",
-    q: "¿Qué vista permite reorganizar fácilmente el orden de las diapositivas en PowerPoint 365?",
-    opts: ["Vista Normal", "Vista Esquema", "Vista Clasificador de diapositivas", "Vista Presentación"],
-    correct: 2
-  },
-  {
-    lesson: 2, lessonName: "Trabajar con diapositivas",
-    q: "¿Qué son los 'diseños de diapositiva' en PowerPoint 365?",
-    opts: ["Animaciones predeterminadas para las diapositivas", "Plantillas de disposición que determinan dónde se colocan los elementos en la diapositiva", "Tipos de transiciones entre diapositivas", "Fondos decorativos para la presentación"],
-    correct: 1
-  },
-
-  /* ── LECCIÓN 3: TRABAJAR CON TEXTO ── */
-  {
-    lesson: 3, lessonName: "Trabajar con texto",
-    q: "¿Qué permite ver la 'Vista Esquema' en PowerPoint 365?",
-    opts: ["Solo las imágenes de la presentación", "El texto de los marcadores de posición de título y contenido de forma estructurada", "Los videos insertados en la presentación", "Los gráficos y tablas de la presentación"],
-    correct: 1
-  },
-  {
-    lesson: 3, lessonName: "Trabajar con texto",
-    q: "¿Cuál es el atajo de teclado para copiar texto en PowerPoint 365?",
-    opts: ["Ctrl + X", "Ctrl + V", "Ctrl + C", "Ctrl + Z"],
-    correct: 2
-  },
-  {
-    lesson: 3, lessonName: "Trabajar con texto",
-    q: "¿Cuál es el atajo de teclado para cortar texto en PowerPoint 365?",
-    opts: ["Ctrl + C", "Ctrl + X", "Ctrl + V", "Ctrl + D"],
-    correct: 1
-  },
-  {
-    lesson: 3, lessonName: "Trabajar con texto",
-    q: "¿Cómo se activa el corrector ortográfico en PowerPoint 365?",
-    opts: ["Inicio > Revisión", "Presionando la tecla F7 o desde Revisar > Ortografía", "Vista > Corrector", "Insertar > Texto > Ortografía"],
-    correct: 1
-  },
-  {
-    lesson: 3, lessonName: "Trabajar con texto",
-    q: "¿Qué son las 'viñetas' en PowerPoint 365?",
-    opts: ["Tipos de animación para texto", "Símbolos o caracteres que se colocan al inicio de cada elemento de una lista", "Formas decorativas que se insertan en la diapositiva", "Tipos de fuente especiales"],
-    correct: 1
-  },
-  {
-    lesson: 3, lessonName: "Trabajar con texto",
-    q: "¿Desde qué pestaña se puede cambiar el formato del texto (negrita, cursiva, tamaño de fuente) en PowerPoint?",
-    opts: ["Insertar", "Diseño", "Inicio", "Vista"],
-    correct: 2
-  },
-  {
-    lesson: 3, lessonName: "Trabajar con texto",
-    q: "¿Qué es un 'cuadro de texto' en PowerPoint 365?",
-    opts: ["Un tipo de tabla para organizar datos", "Un objeto que permite agregar texto en cualquier lugar de la diapositiva", "Un gráfico especial de texto", "Una imagen con texto incrustado"],
-    correct: 1
-  },
-  {
-    lesson: 3, lessonName: "Trabajar con texto",
-    q: "¿Qué opción permite importar un esquema desde un archivo de texto (.txt o .docx) en PowerPoint?",
-    opts: ["Insertar > Objeto", "Inicio > Pegar especial", "Archivo > Abrir > Examinar (seleccionando el archivo de texto)", "Vista > Esquema > Importar"],
-    correct: 2
-  },
-  {
-    lesson: 3, lessonName: "Trabajar con texto",
-    q: "¿Qué permite el 'formato de párrafo' en PowerPoint 365?",
-    opts: ["Solo cambiar el color del texto", "Ajustar la alineación, el interlineado y el espaciado del texto", "Insertar imágenes dentro del texto", "Cambiar el fondo de la diapositiva"],
-    correct: 1
-  },
-
-  /* ── LECCIÓN 4: GRÁFICOS Y TABLAS ── */
-  {
-    lesson: 4, lessonName: "Gráficos y tablas",
-    q: "¿Desde dónde se inserta un gráfico en PowerPoint 365?",
-    opts: ["Inicio > Gráfico", "Insertar > Gráfico", "Diseño > Gráfico", "Vista > Gráfico"],
-    correct: 1
-  },
-  {
-    lesson: 4, lessonName: "Gráficos y tablas",
-    q: "Cuando se inserta un gráfico en PowerPoint 365, ¿qué aplicación se abre para ingresar los datos?",
-    opts: ["Word", "Access", "Excel", "Bloc de notas"],
-    correct: 2
-  },
-  {
-    lesson: 4, lessonName: "Gráficos y tablas",
-    q: "¿Cómo se inserta una tabla en PowerPoint 365?",
-    opts: ["Archivo > Insertar tabla", "Insertar > Tabla", "Diseño > Tabla", "Inicio > Tabla"],
-    correct: 1
-  },
-  {
-    lesson: 4, lessonName: "Gráficos y tablas",
-    q: "¿Qué pestaña contextual aparece en la cinta de opciones cuando se selecciona una tabla en PowerPoint?",
-    opts: ["Herramientas de imagen", "Herramientas de tabla (Diseño y Presentación)", "Herramientas de gráfico", "Herramientas de dibujo"],
-    correct: 1
-  },
-  {
-    lesson: 4, lessonName: "Gráficos y tablas",
-    q: "¿Cómo se agrega una fila nueva al final de una tabla en PowerPoint 365?",
-    opts: ["Clic derecho > Nueva fila", "Presionar Tab desde la última celda de la tabla", "Insertar > Fila nueva", "Diseño > Agregar fila"],
-    correct: 1
-  },
-  {
-    lesson: 4, lessonName: "Gráficos y tablas",
-    q: "¿Qué opción permite cambiar el estilo visual (colores y bordes) de una tabla en PowerPoint 365?",
-    opts: ["La pestaña contextual 'Diseño de tabla'", "La pestaña Inicio > Formato", "La pestaña Insertar > Estilo", "La pestaña Vista > Diseño"],
-    correct: 0
-  }
+const Q = [
+  {l:1,ln:"Introducción",q:"¿Cuál de las siguientes opciones permite crear una presentación nueva en blanco en PowerPoint 365?",opts:["Archivo > Abrir","Archivo > Nuevo > Presentación en blanco","Insertar > Diapositiva","Vista > Normal"],c:1},
+  {l:1,ln:"Introducción",q:"¿Dónde se encuentran las opciones para cambiar el tamaño de la diapositiva en PowerPoint 365?",opts:["Pestaña Inicio > Diapositivas","Pestaña Diseño > Tamaño de diapositiva","Pestaña Insertar > Tamaño","Pestaña Vista > Zoom"],c:1},
+  {l:1,ln:"Introducción",q:"¿Cuál es la extensión predeterminada de un archivo de PowerPoint 365?",opts:[".doc",".xls",".pptx",".pdf"],c:2},
+  {l:1,ln:"Introducción",q:"¿Qué opción se usa para guardar una presentación compatible con versiones anteriores de PowerPoint?",opts:["Guardar como PDF","Guardar como PowerPoint 97-2003 (.ppt)","Exportar como imagen","Guardar en la nube"],c:1},
+  {l:1,ln:"Introducción",q:"¿Qué atajo de teclado se usa para guardar rápidamente una presentación en PowerPoint 365?",opts:["Ctrl + P","Ctrl + G","Ctrl + S","Ctrl + A"],c:2},
+  {l:1,ln:"Introducción",q:"¿Dónde se pueden modificar las propiedades de la presentación (autor, título)?",opts:["Pestaña Insertar > Encabezado","Archivo > Información > Propiedades","Pestaña Diseño > Temas","Vista > Esquema"],c:1},
+  {l:1,ln:"Introducción",q:"¿Qué vista muestra la presentación en pantalla completa, como la vería el público?",opts:["Vista Normal","Vista Esquema","Vista Presentación con diapositivas","Vista Clasificador"],c:2},
+  {l:1,ln:"Introducción",q:"¿Cuáles son los dos tamaños estándar de diapositiva en PowerPoint 365?",opts:["Carta y Oficio","Estándar (4:3) y Panorámica (16:9)","A4 y A3","Cuadrado y Rectangular"],c:1},
+  {l:2,ln:"Trabajar con diapositivas",q:"¿Qué es un 'tema' en PowerPoint 365?",opts:["Un tipo de animación","Un conjunto de colores, fuentes y efectos de diseño predefinidos","Una vista especial","Un tipo de gráfico"],c:1},
+  {l:2,ln:"Trabajar con diapositivas",q:"¿Dónde se encuentran los temas en PowerPoint 365?",opts:["Pestaña Insertar > Temas","Pestaña Diseño > Temas","Pestaña Vista > Temas","Pestaña Inicio > Temas"],c:1},
+  {l:2,ln:"Trabajar con diapositivas",q:"¿Qué es el 'patrón de diapositivas' en PowerPoint 365?",opts:["Una plantilla que controla el formato y diseño de todas las diapositivas","Un tipo de gráfico especial","Una función para imprimir","Una herramienta para agregar texto"],c:0},
+  {l:2,ln:"Trabajar con diapositivas",q:"¿Desde qué pestaña se accede al patrón de diapositivas en PowerPoint 365?",opts:["Inicio","Insertar","Vista","Diseño"],c:2},
+  {l:2,ln:"Trabajar con diapositivas",q:"¿Qué permite el 'pie de página' en una presentación de PowerPoint?",opts:["Agregar un fondo a las diapositivas","Mostrar texto, fecha o número en la parte inferior","Insertar imágenes decorativas","Cambiar el color del texto"],c:1},
+  {l:2,ln:"Trabajar con diapositivas",q:"¿Cómo se duplica una diapositiva en PowerPoint 365?",opts:["Clic derecho en la diapositiva > Duplicar diapositiva","Insertar > Nueva diapositiva > Duplicar","Archivo > Duplicar","Vista > Copiar diapositiva"],c:0},
+  {l:2,ln:"Trabajar con diapositivas",q:"¿Qué vista permite reorganizar fácilmente el orden de las diapositivas?",opts:["Vista Normal","Vista Esquema","Vista Clasificador de diapositivas","Vista Presentación"],c:2},
+  {l:2,ln:"Trabajar con diapositivas",q:"¿Qué son los 'diseños de diapositiva' en PowerPoint 365?",opts:["Animaciones predeterminadas","Plantillas que determinan dónde se colocan los elementos","Tipos de transiciones","Fondos decorativos"],c:1},
+  {l:3,ln:"Trabajar con texto",q:"¿Qué permite ver la 'Vista Esquema' en PowerPoint 365?",opts:["Solo las imágenes","El texto de los marcadores de posición de forma estructurada","Los videos insertados","Los gráficos y tablas"],c:1},
+  {l:3,ln:"Trabajar con texto",q:"¿Cuál es el atajo de teclado para copiar texto en PowerPoint 365?",opts:["Ctrl + X","Ctrl + V","Ctrl + C","Ctrl + Z"],c:2},
+  {l:3,ln:"Trabajar con texto",q:"¿Cuál es el atajo de teclado para cortar texto en PowerPoint 365?",opts:["Ctrl + C","Ctrl + X","Ctrl + V","Ctrl + D"],c:1},
+  {l:3,ln:"Trabajar con texto",q:"¿Cómo se activa el corrector ortográfico en PowerPoint 365?",opts:["Inicio > Revisión","Presionando F7 o desde Revisar > Ortografía","Vista > Corrector","Insertar > Texto > Ortografía"],c:1},
+  {l:3,ln:"Trabajar con texto",q:"¿Qué son las 'viñetas' en PowerPoint 365?",opts:["Tipos de animación","Símbolos al inicio de cada elemento de una lista","Formas decorativas","Tipos de fuente especiales"],c:1},
+  {l:3,ln:"Trabajar con texto",q:"¿Desde qué pestaña se cambia el formato del texto (negrita, cursiva, tamaño) en PowerPoint?",opts:["Insertar","Diseño","Inicio","Vista"],c:2},
+  {l:3,ln:"Trabajar con texto",q:"¿Qué es un 'cuadro de texto' en PowerPoint 365?",opts:["Un tipo de tabla para datos","Un objeto para agregar texto en cualquier lugar de la diapositiva","Un gráfico especial de texto","Una imagen con texto incrustado"],c:1},
+  {l:3,ln:"Trabajar con texto",q:"¿Qué opción permite importar un esquema desde un archivo de texto en PowerPoint?",opts:["Insertar > Objeto","Inicio > Pegar especial","Archivo > Abrir > Examinar (seleccionando el archivo de texto)","Vista > Esquema > Importar"],c:2},
+  {l:3,ln:"Trabajar con texto",q:"¿Qué permite el 'formato de párrafo' en PowerPoint 365?",opts:["Solo cambiar el color del texto","Ajustar la alineación, el interlineado y el espaciado","Insertar imágenes dentro del texto","Cambiar el fondo de la diapositiva"],c:1},
+  {l:4,ln:"Gráficos y tablas",q:"¿Desde dónde se inserta un gráfico en PowerPoint 365?",opts:["Inicio > Gráfico","Insertar > Gráfico","Diseño > Gráfico","Vista > Gráfico"],c:1},
+  {l:4,ln:"Gráficos y tablas",q:"Al insertar un gráfico en PowerPoint 365, ¿qué aplicación se abre para ingresar los datos?",opts:["Word","Access","Excel","Bloc de notas"],c:2},
+  {l:4,ln:"Gráficos y tablas",q:"¿Cómo se inserta una tabla en PowerPoint 365?",opts:["Archivo > Insertar tabla","Insertar > Tabla","Diseño > Tabla","Inicio > Tabla"],c:1},
+  {l:4,ln:"Gráficos y tablas",q:"¿Qué pestaña contextual aparece cuando se selecciona una tabla en PowerPoint?",opts:["Herramientas de imagen","Herramientas de tabla (Diseño y Presentación)","Herramientas de gráfico","Herramientas de dibujo"],c:1},
+  {l:4,ln:"Gráficos y tablas",q:"¿Cómo se agrega una fila nueva al final de una tabla en PowerPoint 365?",opts:["Clic derecho > Nueva fila","Presionar Tab desde la última celda de la tabla","Insertar > Fila nueva","Diseño > Agregar fila"],c:1},
 ];
 
-// ── STATE ──
-let answers = new Array(QUESTIONS.length).fill(null);
-let correctCount = 0;
-let wrongCount = 0;
+const ICONS = {1:'📋',2:'🖼️',3:'✍️',4:'📊'};
+let cur=0, correct=0, wrong=0, answered=false;
+let ls = {1:{c:0,t:0},2:{c:0,t:0},3:{c:0,t:0},4:{c:0,t:0}};
 
-// ── BUILD QUIZ ──
-function buildQuiz() {
-  const container = document.getElementById('quiz-container');
-  container.innerHTML = '';
-  answers.fill(null);
-  correctCount = 0; wrongCount = 0;
-  updateProgress();
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 
-  let lastLesson = 0;
+function startQuiz(){
+  cur=0;correct=0;wrong=0;answered=false;
+  ls={1:{c:0,t:0},2:{c:0,t:0},3:{c:0,t:0},4:{c:0,t:0}};
+  show('quiz');
+  render();
+}
 
-  QUESTIONS.forEach((qObj, idx) => {
-    if (qObj.lesson !== lastLesson) {
-      lastLesson = qObj.lesson;
-      const chip = document.createElement('div');
-      chip.className = 'lesson-chip';
-      chip.innerHTML = `📂 Lección ${qObj.lesson}: ${qObj.lessonName}`;
-      container.appendChild(chip);
-    }
-
-    const card = document.createElement('div');
-    card.className = 'q-card';
-    card.id = `card-${idx}`;
-
-    const letters = ['A', 'B', 'C', 'D'];
-    let optHTML = qObj.opts.map((opt, oi) => `
-      <button class="opt-btn" data-q="${idx}" data-o="${oi}" onclick="selectAnswer(${idx},${oi})">
-        <span class="opt-letter">${letters[oi]}</span>
-        <span>${opt}</span>
+function render(){
+  answered=false;
+  const o=Q[cur];
+  const LTR=['A','B','C','D'];
+  document.getElementById('qcount').textContent=`${cur+1} / ${Q.length}`;
+  document.getElementById('pfill').style.width=((cur/Q.length)*100)+'%';
+  document.getElementById('spill').innerHTML=`✅ ${correct} &nbsp;❌ ${wrong}`;
+  const optsH=o.opts.map((t,i)=>`
+    <button class="opt" onclick="pick(${i})">
+      <span class="oltr">${LTR[i]}</span><span>${t}</span>
+    </button>`).join('');
+  const w=document.getElementById('qwrap');
+  w.innerHTML=`
+    <div class="qlchip">${ICONS[o.l]} Lección ${o.l}: ${o.ln}</div>
+    <div class="qcard" id="qcard">
+      <div class="qnum">Pregunta ${cur+1} de ${Q.length}</div>
+      <div class="qtext">${o.q}</div>
+      <div class="opts">${optsH}</div>
+      <div class="fb" id="fb"></div>
+    </div>
+    <div class="nextwrap">
+      <button class="btn-next" id="btnNext" onclick="nextQ()">
+        ${cur===Q.length-1?'Ver resultado 🎯':'Siguiente ➜'}
       </button>
-    `).join('');
-
-    card.innerHTML = `
-      <div class="q-number">Pregunta ${idx + 1}</div>
-      <div class="q-text">${qObj.q}</div>
-      <div class="options">${optHTML}</div>
-      <div class="feedback" id="fb-${idx}"></div>
-    `;
-    container.appendChild(card);
-  });
-
-  document.getElementById('submit-wrap').style.display = 'flex';
-  document.getElementById('submit-wrap').style.justifyContent = 'center';
-  document.getElementById('results-screen').style.display = 'none';
-  document.getElementById('btn-submit').disabled = true;
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+    </div>`;
+  w.classList.remove('leaving');
+  void w.offsetWidth;
+  w.style.animation='none';
+  void w.offsetWidth;
+  w.style.animation='';
 }
 
-// ── SELECT ANSWER ──
-function selectAnswer(qIdx, optIdx) {
-  if (answers[qIdx] !== null) return; // already answered
-
-  const qObj = QUESTIONS[qIdx];
-  answers[qIdx] = optIdx;
-  const isCorrect = optIdx === qObj.correct;
-
-  if (isCorrect) correctCount++; else wrongCount++;
-
-  // Disable all buttons for this question
-  document.querySelectorAll(`[data-q="${qIdx}"]`).forEach(btn => {
-    btn.disabled = true;
-    const o = parseInt(btn.getAttribute('data-o'));
-    if (o === qObj.correct) btn.classList.add('correct');
-    else if (o === optIdx)  btn.classList.add('wrong');
+function pick(idx){
+  if(answered)return;
+  answered=true;
+  const o=Q[cur];
+  const ok=idx===o.c;
+  ls[o.l].t++;
+  if(ok){correct++;ls[o.l].c++;}else wrong++;
+  document.querySelectorAll('.opt').forEach((b,i)=>{
+    b.disabled=true;
+    if(i===o.c)b.classList.add('correct');
+    else if(i===idx)b.classList.add('wrong');
   });
-
-  // Show feedback
-  const fb = document.getElementById(`fb-${qIdx}`);
-  if (isCorrect) {
-    fb.className = 'feedback show ok';
-    fb.innerHTML = '✅ ¡Correcto! Muy bien.';
-  } else {
-    const correctText = qObj.opts[qObj.correct];
-    fb.className = 'feedback show bad';
-    fb.innerHTML = `❌ Incorrecto. La respuesta correcta es: <strong>${correctText}</strong>`;
+  document.getElementById('qcard').classList.add(ok?'ok':'fail');
+  const fb=document.getElementById('fb');
+  if(ok){
+    fb.className='fb show ok';
+    fb.innerHTML='<span class="fbi">✅</span><span>¡Correcto! Muy bien.</span>';
+  }else{
+    fb.className='fb show fail';
+    fb.innerHTML=`<span class="fbi">❌</span><span>Incorrecto. La respuesta correcta es: <strong>${o.opts[o.c]}</strong></span>`;
   }
-
-  // Card border
-  const card = document.getElementById(`card-${qIdx}`);
-  card.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
-
-  updateProgress();
-
-  // Enable submit when all answered
-  const answered = answers.filter(a => a !== null).length;
-  if (answered === QUESTIONS.length) {
-    document.getElementById('btn-submit').disabled = false;
-    document.getElementById('btn-submit').scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
+  document.getElementById('spill').innerHTML=`✅ ${correct} &nbsp;❌ ${wrong}`;
+  document.getElementById('btnNext').classList.add('show');
 }
 
-// ── PROGRESS ──
-function updateProgress() {
-  const answered = answers.filter(a => a !== null).length;
-  const pct = (answered / QUESTIONS.length) * 100;
-  document.getElementById('progress-bar-inner').style.width = pct + '%';
-  document.getElementById('progress-label').textContent = `${answered} / ${QUESTIONS.length}`;
-  document.getElementById('score-live').innerHTML = `✅ ${correctCount} &nbsp; ❌ ${wrongCount}`;
+function nextQ(){
+  const w=document.getElementById('qwrap');
+  w.classList.add('leaving');
+  setTimeout(()=>{
+    cur++;
+    if(cur>=Q.length)showResults();
+    else render();
+  },250);
 }
 
-// ── SHOW RESULTS ──
-function showResults() {
-  document.getElementById('quiz-container').style.display = 'none';
-  document.getElementById('submit-wrap').style.display = 'none';
-  const results = document.getElementById('results-screen');
-  results.style.display = 'block';
-
-  document.getElementById('final-score').textContent = correctCount;
-  const pct = (correctCount / QUESTIONS.length) * 100;
-
-  let trophy, title, msg;
-  if (pct === 100) {
-    trophy = '🏆'; title = '¡Perfecto! ¡Eres un campeón!';
-    msg = '¡Increíble! Respondiste correctamente todas las preguntas. ¡Estás más que listo para la certificación de PowerPoint 365!';
-  } else if (pct >= 80) {
-    trophy = '🥇'; title = '¡Excelente resultado!';
-    msg = `¡Muy bien hecho! Obtuviste ${correctCount} de 30. Tienes un dominio sólido de PowerPoint 365. Repasa las preguntas que fallaste y estarás listo para certificarte.`;
-  } else if (pct >= 60) {
-    trophy = '🥈'; title = '¡Buen trabajo!';
-    msg = `Obtuviste ${correctCount} de 30. ¡Vas por buen camino! Te recomendamos repasar las lecciones donde tuviste errores antes de presentar la certificación.`;
-  } else if (pct >= 40) {
-    trophy = '📚'; title = '¡Sigue practicando!';
-    msg = `Obtuviste ${correctCount} de 30. Necesitas repasar más los temas. Vuelve a revisar las lecciones en Jasperactive y vuelve a intentarlo. ¡Tú puedes!`;
-  } else {
-    trophy = '💪'; title = '¡No te rindas!';
-    msg = `Obtuviste ${correctCount} de 30. Es momento de repasar todas las lecciones desde el principio. ¡Cada intento te hace más fuerte!`;
-  }
-
-  document.getElementById('trophy').textContent = trophy;
-  document.getElementById('result-title').textContent = title;
-  document.getElementById('result-msg').textContent = msg;
-
-  // Per-lesson summary
-  const lessonData = {};
-  QUESTIONS.forEach((q, i) => {
-    if (!lessonData[q.lesson]) lessonData[q.lesson] = { name: q.lessonName, correct: 0, total: 0 };
-    lessonData[q.lesson].total++;
-    if (answers[i] === q.correct) lessonData[q.lesson].correct++;
+function showResults(){
+  show('results');
+  const pct=Math.round((correct/Q.length)*100);
+  const circ=2*Math.PI*65;
+  const dash=(correct/Q.length)*circ;
+  setTimeout(()=>{document.getElementById('rfg').style.strokeDasharray=`${dash} ${circ}`;},200);
+  document.getElementById('rnum').textContent=correct;
+  document.getElementById('rpct').textContent=`${pct}% de aciertos`;
+  let trophy,title,msg;
+  if(pct===100){trophy='🏆';title='¡Perfecto absoluto!';msg=`¡Increíble! Respondiste correctamente las 30 preguntas. ¡Eres un experto en PowerPoint 365 y estás totalmente listo para la certificación!`;}
+  else if(pct>=80){trophy='🥇';title='¡Excelente resultado!';msg=`¡Muy bien! Obtuviste ${correct} de 30 (${pct}%). Tienes un dominio muy sólido de PowerPoint 365. Repasa las preguntas que fallaste y estarás listo para certificarte.`;}
+  else if(pct>=60){trophy='🥈';title='¡Buen trabajo!';msg=`Obtuviste ${correct} de 30 (${pct}%). ¡Vas por buen camino! Te recomendamos repasar las lecciones donde tuviste más errores antes de la certificación.`;}
+  else if(pct>=40){trophy='📚';title='¡Sigue practicando!';msg=`Obtuviste ${correct} de 30 (${pct}%). Necesitas repasar más los temas. Vuelve a Jasperactive y luego inténtalo de nuevo. ¡Tú puedes!`;}
+  else{trophy='💪';title='¡No te rindas!';msg=`Obtuviste ${correct} de 30 (${pct}%). Es momento de repasar todas las lecciones con calma desde el inicio. ¡Cada intento te hace mejor!`;}
+  document.getElementById('trophy').textContent=trophy;
+  document.getElementById('rtitle').textContent=title;
+  document.getElementById('rmsg').textContent=msg;
+  const bd=document.getElementById('bdown');
+  bd.innerHTML='';
+  [{l:1,n:'Introducción'},{l:2,n:'Diapositivas'},{l:3,n:'Texto'},{l:4,n:'Gráficos y tablas'}].forEach(({l,n})=>{
+    const d=ls[l];
+    const p=d.t?Math.round((d.c/d.t)*100):0;
+    const div=document.createElement('div');
+    div.className='bcard';
+    div.innerHTML=`<div class="bico">${ICONS[l]}</div><div class="bl">Lección ${l}</div><div class="bn">${n}</div><div class="btrack"><div class="bfill" id="bf${l}" style="width:0%"></div></div><div class="bsc">${d.c}/${d.t} correctas</div>`;
+    bd.appendChild(div);
+    setTimeout(()=>{document.getElementById('bf'+l).style.width=p+'%';},700);
   });
-
-  const sumDiv = document.getElementById('lesson-summary');
-  sumDiv.innerHTML = '';
-  Object.entries(lessonData).forEach(([l, d]) => {
-    const chip = document.createElement('div');
-    chip.className = 'ls-chip';
-    const emojis = ['','📋','🖼️','✍️','📊'];
-    chip.innerHTML = `${emojis[l]} Lección ${l}<br><small>${d.name}</small><span>${d.correct}/${d.total}</span>`;
-    sumDiv.appendChild(chip);
-  });
-
-  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// ── RETRY ──
-function retryQuiz() {
-  document.getElementById('quiz-container').style.display = 'block';
-  buildQuiz();
-}
-
-// ── INIT ──
-buildQuiz();
+function retry(){show('cover');}
 </script>
 </body>
 </html>
